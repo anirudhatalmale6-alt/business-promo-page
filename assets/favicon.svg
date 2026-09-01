@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Browser-tab icon. Same mark as logo.svg, drawn a little heavier so it
+     stays readable at 16x16. Replace with your own when you have one. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40">
+  <rect width="40" height="40" rx="8" fill="#0d2340"/>
+  <path d="M11 29V11l18 18V11" fill="none" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="29" cy="11" r="3.6" fill="#2f7fd1"/>
+</svg>

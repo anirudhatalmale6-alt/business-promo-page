@@ -1,0 +1,307 @@
+/* ==========================================================================
+   components.css  —  reusable pieces
+   Buttons, cards, the contact form, alerts and the scroll animations.
+   Anything added later (a Services card, a testimonial) can reuse these.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. BUTTONS
+   -------------------------------------------------------------------------- */
+.btn {
+  --btn-bg: var(--accent);
+  --btn-fg: #fff;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: 0.85rem 1.6rem;
+  min-height: 48px;                     /* comfortable touch target          */
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform var(--speed) var(--ease),
+              background var(--speed) var(--ease),
+              box-shadow var(--speed) var(--ease),
+              border-color var(--speed) var(--ease);
+}
+.btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.btn:active { transform: translateY(0); }
+
+.btn--primary { background: var(--accent); color: #fff; }
+.btn--primary:hover { background: var(--accent-dark); color: #fff; }
+
+.btn--ghost {
+  background: transparent;
+  color: var(--brand-800);
+  border-color: var(--line);
+}
+.btn--ghost:hover { background: var(--surface); border-color: var(--accent); color: var(--accent-dark); }
+
+.btn--sm { padding: 0.6rem 1.1rem; min-height: 40px; }
+.btn--block { width: 100%; }
+
+.btn[disabled] { opacity: 0.65; cursor: not-allowed; transform: none; box-shadow: none; }
+
+/* Spinner shown while the form is submitting (.is-sending added by JS) */
+.btn__spinner {
+  display: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.45);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+.btn.is-sending .btn__spinner { display: block; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* --------------------------------------------------------------------------
+   2. CARDS
+   -------------------------------------------------------------------------- */
+.card {
+  position: relative;
+  padding: var(--sp-6);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--speed) var(--ease),
+              box-shadow var(--speed) var(--ease),
+              border-color var(--speed) var(--ease);
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: #cddcec;
+}
+/* Thin accent rule that appears along the top edge on hover */
+.card::after {
+  content: "";
+  position: absolute;
+  inset: -1px -1px auto -1px;
+  height: 3px;
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: linear-gradient(90deg, var(--accent), var(--gold));
+  opacity: 0;
+  transition: opacity var(--speed) var(--ease);
+}
+.card:hover::after { opacity: 1; }
+
+.card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  margin-bottom: var(--sp-4);
+  background: var(--accent-soft);
+  color: var(--accent-dark);
+  border-radius: var(--radius-sm);
+}
+.card__title { margin-bottom: var(--sp-2); }
+.card__text { color: var(--ink-muted); font-size: var(--fs-sm); margin: 0; }
+
+/* --------------------------------------------------------------------------
+   3. CONTACT FORM
+   -------------------------------------------------------------------------- */
+.form {
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  color: var(--ink);
+}
+
+.field { margin-bottom: var(--sp-5); }
+
+.field__label {
+  display: block;
+  margin-bottom: var(--sp-2);
+  color: var(--brand-800);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+.field__req { color: var(--accent); }
+
+.field__input {
+  width: 100%;
+  padding: 0.8rem 0.95rem;
+  min-height: 48px;
+  background: #fdfefe;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  font: inherit;
+  font-size: 1rem;                      /* 16px stops iOS zooming on focus   */
+  transition: border-color var(--speed) var(--ease),
+              box-shadow var(--speed) var(--ease),
+              background var(--speed) var(--ease);
+}
+.field__input::placeholder { color: #9aa8ba; }
+.field__input:hover { border-color: #c3cede; }
+.field__input:focus {
+  outline: none;
+  background: #fff;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(47, 127, 209, 0.16);
+}
+.field__input--area { resize: vertical; min-height: 132px; line-height: 1.6; }
+
+/* Error state: red border + message. .has-error is set by js/main.js */
+.field.has-error .field__input {
+  border-color: #d0453c;
+  background: #fff8f8;
+}
+.field.has-error .field__input:focus { box-shadow: 0 0 0 4px rgba(208, 69, 60, 0.15); }
+
+.field__error {
+  margin: 0;
+  color: #c0392b;
+  font-size: var(--fs-xs);
+  line-height: 1.4;
+  min-height: 0;
+}
+.field.has-error .field__error { margin-top: var(--sp-2); }
+
+.field__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--sp-3);
+}
+.field__count {
+  margin: var(--sp-2) 0 0;
+  flex: 0 0 auto;
+  color: var(--ink-muted);
+  font-size: var(--fs-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Consent checkbox row */
+.field--check {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--sp-2) var(--sp-3);
+  align-items: start;
+}
+.field__check {
+  width: 20px;
+  height: 20px;
+  margin: 2px 0 0;
+  accent-color: var(--accent);          /* native tick in the brand colour   */
+  cursor: pointer;
+}
+.field__check-label {
+  color: var(--ink-muted);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  cursor: pointer;
+}
+.field--check .field__error { grid-column: 1 / -1; }
+
+.form__note {
+  margin: var(--sp-4) 0 0;
+  color: var(--ink-muted);
+  font-size: var(--fs-xs);
+  text-align: center;
+}
+
+/* ---- HONEYPOT ----------------------------------------------------------
+   Kept in the DOM (bots read the HTML) but removed from every human's
+   view: off-screen, zero size, not focusable, ignored by screen readers. */
+.hp {
+  position: absolute !important;
+  left: -9999px !important;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   4. SUCCESS / FAILURE FEEDBACK
+   -------------------------------------------------------------------------- */
+.form-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  margin-top: var(--sp-5);
+  padding: var(--sp-4);
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+  animation: alert-in 0.35s var(--ease) both;
+}
+.form-alert[hidden] { display: none; }
+
+.form-alert--success {
+  background: #edf9f1;
+  border-color: #b9e3c8;
+  color: #1c6b3c;
+}
+.form-alert--error {
+  background: #fdf1f0;
+  border-color: #f0c3bf;
+  color: #a4302a;
+}
+.form-alert__icon { flex: 0 0 auto; margin-top: 1px; }
+.form-alert strong { display: block; margin-bottom: 2px; }
+
+@keyframes alert-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* --------------------------------------------------------------------------
+   5. SCROLL-REVEAL ANIMATION
+   Elements marked .reveal start slightly lower and transparent; main.js
+   adds .is-visible when they scroll into view.
+   The rules are scoped to html.js — a one-line script in <head> adds that
+   class — so with JavaScript disabled the content is simply visible and
+   nothing is ever hidden from a visitor by an animation that cannot run.
+   -------------------------------------------------------------------------- */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  will-change: opacity, transform;
+}
+.js .reveal.is-visible { opacity: 1; transform: none; }
+
+/* Stagger helpers so a row of items arrives one after another */
+.js .reveal--delay-1 { transition-delay: 0.08s; }
+.js .reveal--delay-2 { transition-delay: 0.16s; }
+.js .reveal--delay-3 { transition-delay: 0.24s; }
+
+/* --------------------------------------------------------------------------
+   6. ACCESSIBILITY / FALLBACK OVERRIDES  (keep these last)
+   -------------------------------------------------------------------------- */
+
+/* Respect the operating-system "reduce motion" setting: no movement at all */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .js .reveal { opacity: 1; transform: none; }
+}
+
+/* Printing: drop the chrome, keep the words */
+@media print {
+  .site-header, .nav, .hero__actions, .form, .site-footer { display: none !important; }
+  .js .reveal { opacity: 1 !important; transform: none !important; }
+  body { color: #000; }
+}

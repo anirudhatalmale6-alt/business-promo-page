@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ==========================================================
+       PAGE META  —  edit the three lines below for your business
+       ========================================================== -->
+  <title>Northbridge Consulting — Practical strategy for growing businesses</title>
+  <meta name="description" content="Northbridge Consulting helps established businesses plan, operate and grow with clarity. Talk to us about your next move.">
+  <meta name="author" content="Northbridge Consulting">
+
+  <!-- Open Graph (how the page looks when shared on social / messaging) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Northbridge Consulting">
+  <meta property="og:description" content="Practical strategy for growing businesses.">
+  <meta property="og:image" content="assets/hero.svg">
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <!-- Stylesheets are split into three modules so they stay easy to extend.
+       base.css       = design tokens (colours, fonts, spacing), reset, typography
+       layout.css     = page structure: header, hero, sections, footer, grids
+       components.css = reusable pieces: buttons, cards, form, alerts, animation -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+
+  <!-- Marks the page as "JavaScript is available". The scroll-in animations
+       are scoped to this class, so with JS disabled nothing is ever hidden. -->
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+
+<body>
+
+  <!-- Keyboard / screen-reader users can jump straight to the content -->
+  <a class="skip-link" href="#about">Skip to main content</a>
+
+  <!-- ==========================================================
+       HEADER  —  sticky top bar with logo and navigation
+       ========================================================== -->
+  <header class="site-header" id="top">
+    <div class="container site-header__inner">
+
+      <a class="brand" href="#top" aria-label="Northbridge Consulting — home">
+        <img class="brand__mark" src="assets/logo.svg" alt="" width="36" height="36">
+        <span class="brand__name">Northbridge <span class="brand__name-accent">Consulting</span></span>
+      </a>
+
+      <!-- Mobile menu button. JS toggles aria-expanded and the .is-open class. -->
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+        <span class="nav-toggle__bars" aria-hidden="true"></span>
+        <span class="nav-toggle__label">Menu</span>
+      </button>
+
+      <nav class="nav" id="primary-nav" aria-label="Primary">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="#about">About</a></li>
+          <li><a class="nav__link" href="#values">Why us</a></li>
+          <!-- A future "Services" section only needs a link here:
+               <li><a class="nav__link" href="#services">Services</a></li> -->
+          <li><a class="nav__link" href="#contact">Contact</a></li>
+          <li><a class="btn btn--primary btn--sm nav__cta" href="#contact">Get in touch</a></li>
+        </ul>
+      </nav>
+
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ==========================================================
+         HERO / ABOUT US
+         Headline + 200–300 words of copy + hero image.
+         All the text lives in this one block, so it is safe to edit.
+         ========================================================== -->
+    <section class="hero" id="about" aria-labelledby="about-heading">
+      <div class="container hero__inner">
+
+        <div class="hero__content reveal">
+          <p class="eyebrow">About us</p>
+          <h1 class="hero__title" id="about-heading">
+            Practical strategy for businesses that have outgrown guesswork
+          </h1>
+          <p class="hero__standfirst">
+            We help owner-led companies decide what to do next — and prove it with
+            their own numbers before a single pound is committed.
+          </p>
+
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#contact">Start a conversation</a>
+            <a class="btn btn--ghost" href="#values">How we work</a>
+          </div>
+        </div>
+
+        <!-- Hero image. Swap the SVG for your own photo (JPG/PNG) if you prefer —
+             keep the width/height attributes roughly matching the real image size. -->
+        <div class="hero__media reveal reveal--delay-1">
+          <img class="hero__image" src="assets/hero.svg" alt="Dashboard showing a rising performance trend, quarterly figures and a completed action list" width="720" height="560">
+        </div>
+
+      </div><!-- /.hero__inner -->
+
+      <!-- ==== About Us copy: roughly 250 words, all in this one block.
+           Edit the paragraphs freely — they flow into two columns on wide
+           screens and stack into one on phones, with no changes needed. ==== -->
+      <div class="container">
+        <div class="prose prose--columns reveal">
+            <p>
+              Northbridge Consulting works with established, owner-led businesses at the point
+              where instinct stops being enough. You already have customers, revenue and a team.
+              What you need is a clear view of what to do next, in what order, and what it will
+              genuinely cost you to get there.
+            </p>
+            <p>
+              We start with the numbers you already have. Before recommending anything, we spend
+              time inside your operation — reading your accounts, sitting with your people and
+              tracing how work actually moves through the business rather than how the org chart
+              says it should. That groundwork is unglamorous, and it is the reason our
+              recommendations survive contact with reality.
+            </p>
+            <p>
+              From there we build a plan you can act on: a short list of decisions, each with an
+              owner, a deadline and a number attached. No 90-slide decks, no jargon, no strategy
+              that quietly depends on hiring six people you cannot afford. If a recommendation
+              cannot be implemented by your current team within the next two quarters, we say so
+              plainly and help you sequence it properly.
+            </p>
+            <p>
+              Founded in 2014, we have guided more than 180 engagements across manufacturing,
+              professional services, logistics and healthcare. Most of our work now comes from
+              clients we advised years ago, which is the only performance metric we really trust.
+              We keep our engagements deliberately small so the people you meet are the people who
+              do the work.
+            </p>
+        </div>
+      </div>
+      <!-- ==== end About Us copy ==== -->
+
+    </section>
+
+    <!-- ==========================================================
+         TRUST STRIP  —  small proof points under the hero
+         ========================================================== -->
+    <section class="stats" aria-label="Key figures">
+      <div class="container stats__grid">
+        <div class="stat reveal">
+          <span class="stat__value">11 yrs</span>
+          <span class="stat__label">Advising owner-led businesses</span>
+        </div>
+        <div class="stat reveal reveal--delay-1">
+          <span class="stat__value">180+</span>
+          <span class="stat__label">Engagements delivered</span>
+        </div>
+        <div class="stat reveal reveal--delay-2">
+          <span class="stat__value">72%</span>
+          <span class="stat__label">Of work from returning clients</span>
+        </div>
+        <div class="stat reveal reveal--delay-3">
+          <span class="stat__value">4 wks</span>
+          <span class="stat__label">Typical time to a costed plan</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         VALUES  —  three cards. Duplicate a .card to add a fourth.
+         ========================================================== -->
+    <section class="section" id="values" aria-labelledby="values-heading">
+      <div class="container">
+
+        <header class="section__head reveal">
+          <p class="eyebrow">Why clients stay</p>
+          <h2 class="section__title" id="values-heading">Straight answers, built on your own numbers</h2>
+          <p class="section__lead">
+            Three commitments we make on every engagement, written down so you can hold us to them.
+          </p>
+        </header>
+
+        <div class="card-grid">
+
+          <article class="card reveal">
+            <span class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M6 20V10"/><path d="M12 20V4"/><path d="M18 20v-7"/></svg>
+            </span>
+            <h3 class="card__title">Evidence before opinion</h3>
+            <p class="card__text">
+              Every recommendation traces back to a figure in your own accounts or a process we
+              watched with our own eyes. If we cannot show you the evidence, we do not put it in
+              the plan.
+            </p>
+          </article>
+
+          <article class="card reveal reveal--delay-1">
+            <span class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </span>
+            <h3 class="card__title">Plans your team can actually run</h3>
+            <p class="card__text">
+              We size the plan to the people you have. Each action gets an owner, a date and a
+              number, so progress is visible long after we have left the building.
+            </p>
+          </article>
+
+          <article class="card reveal reveal--delay-2">
+            <span class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6l-8-3Z"/></svg>
+            </span>
+            <h3 class="card__title">One senior team, start to finish</h3>
+            <p class="card__text">
+              The people in your first meeting are the people doing the work. Nothing is handed
+              down to a junior team once the engagement is signed.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         A future SERVICES section drops in here. Copy the block
+         above, change id="services" and the headings — the card
+         grid is already responsive.
+         ========================================================== -->
+
+    <!-- ==========================================================
+         CONTACT  —  the page's main goal
+         ========================================================== -->
+    <section class="section section--contact" id="contact" aria-labelledby="contact-heading">
+      <div class="container contact__inner">
+
+        <div class="contact__intro reveal">
+          <p class="eyebrow eyebrow--light">Contact</p>
+          <h2 class="section__title section__title--light" id="contact-heading">Tell us what you are trying to fix</h2>
+          <p class="contact__lead">
+            Send a short note about where the business is and what is in the way. We reply to every
+            enquiry within one working day, and the first conversation costs nothing.
+          </p>
+
+          <ul class="contact__list">
+            <li class="contact__item">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="m4 6 8 6 8-6"/></svg>
+              <span>hello@example.com</span>
+            </li>
+            <li class="contact__item">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h4l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2Z"/></svg>
+              <span>+44 20 0000 0000</span>
+            </li>
+            <li class="contact__item">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+              <span>Floor 3, 24 Northbridge Street, London</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- ======================================================
+             CONTACT FORM
+             action= points at a placeholder endpoint for now.
+             js/main.js validates in the browser, then either
+             simulates a send (demo mode) or POSTs to a real
+             endpoint once you set one. See README.
+             ====================================================== -->
+        <div class="contact__form-wrap reveal reveal--delay-1">
+          <form class="form" id="contact-form" action="https://example.com/your-form-endpoint" method="post" novalidate>
+
+            <div class="field">
+              <label class="field__label" for="name">Your name <span class="field__req" aria-hidden="true">*</span></label>
+              <input class="field__input" type="text" id="name" name="name" autocomplete="name"
+                     placeholder="Jane Whitfield" required minlength="2" maxlength="80"
+                     aria-describedby="name-error">
+              <p class="field__error" id="name-error" role="alert"></p>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="email">Email address <span class="field__req" aria-hidden="true">*</span></label>
+              <input class="field__input" type="email" id="email" name="email" autocomplete="email"
+                     placeholder="jane@yourcompany.com" required maxlength="120"
+                     aria-describedby="email-error">
+              <p class="field__error" id="email-error" role="alert"></p>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="message">How can we help? <span class="field__req" aria-hidden="true">*</span></label>
+              <textarea class="field__input field__input--area" id="message" name="message" rows="5"
+                        placeholder="A sentence or two about the business and what is in the way."
+                        required minlength="20" maxlength="2000"
+                        aria-describedby="message-error message-count"></textarea>
+              <div class="field__meta">
+                <p class="field__error" id="message-error" role="alert"></p>
+                <p class="field__count" id="message-count">0 / 2000</p>
+              </div>
+            </div>
+
+            <!-- HONEYPOT SPAM TRAP
+                 Hidden from humans by CSS (.hp) and skipped by keyboard/screen readers.
+                 Bots fill in every field they find; if this one arrives filled,
+                 main.js silently discards the submission. -->
+            <div class="hp" aria-hidden="true">
+              <label for="company-website">Company website (leave this field empty)</label>
+              <input type="text" id="company-website" name="company_website" tabindex="-1" autocomplete="off">
+            </div>
+
+            <!-- Timing trap: forms completed in under 3 seconds are almost always bots.
+                 main.js stamps this on page load. -->
+            <input type="hidden" name="form_loaded_at" id="form-loaded-at" value="">
+
+            <div class="field field--check">
+              <input class="field__check" type="checkbox" id="consent" name="consent" required aria-describedby="consent-error">
+              <label class="field__check-label" for="consent">
+                I am happy for Northbridge Consulting to reply to this enquiry.
+              </label>
+              <p class="field__error" id="consent-error" role="alert"></p>
+            </div>
+
+            <button class="btn btn--primary btn--block" type="submit" id="submit-btn">
+              <span class="btn__label">Send enquiry</span>
+              <span class="btn__spinner" aria-hidden="true"></span>
+            </button>
+
+            <!-- Success / failure feedback lands here -->
+            <div class="form-alert" id="form-alert" role="status" aria-live="polite" hidden></div>
+
+            <p class="form__note">
+              We never share your details. Typical reply time: one working day.
+            </p>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================
+       FOOTER
+       ========================================================== -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <a class="brand brand--footer" href="#top">
+        <img class="brand__mark" src="assets/logo.svg" alt="" width="30" height="30">
+        <span class="brand__name">Northbridge <span class="brand__name-accent">Consulting</span></span>
+      </a>
+      <p class="site-footer__text">
+        Floor 3, 24 Northbridge Street, London &middot; Company no. 00000000
+      </p>
+      <p class="site-footer__text site-footer__text--small">
+        <span id="year">2026</span> Northbridge Consulting. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

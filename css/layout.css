@@ -1,0 +1,335 @@
+/* ==========================================================================
+   layout.css  —  page structure
+   Header / navigation, hero, section rhythm, grids, footer.
+   Mobile-first: the base rules describe the 320px layout, and the
+   media queries at the bottom of each block widen it for larger screens.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. HEADER + NAVIGATION
+   -------------------------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: saturate(160%) blur(10px);
+  border-bottom: 1px solid var(--line);
+  transition: box-shadow var(--speed) var(--ease);
+}
+/* JS adds .is-scrolled once the page moves, for a subtle lift */
+.site-header.is-scrolled { box-shadow: var(--shadow-sm); }
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  min-height: 68px;
+  flex-wrap: wrap;
+}
+
+/* ---- Logo / wordmark ---- */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  /* A small flex-basis is deliberate: a flex row wraps *before* it shrinks,
+     so a long business name would otherwise push the menu button onto its
+     own line. Starting small and growing keeps them side by side. */
+  flex: 1 1 7rem;
+  min-width: 0;                 /* lets the wordmark shrink instead of overflowing */
+  color: var(--brand-800);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+.brand__mark { flex: 0 0 auto; }
+.brand__name { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.brand__name-accent { color: var(--accent); font-weight: 500; }
+
+/* ---- Mobile menu button (hidden from ~880px up) ---- */
+.nav-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3);
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  color: var(--brand-800);
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+.nav-toggle:hover { border-color: var(--accent); color: var(--accent-dark); }
+
+/* On the narrowest phones the word "Menu" costs more room than it earns.
+   The button keeps its accessible name from the icon + this hidden label. */
+@media (max-width: 420px) {
+  .nav-toggle__label {
+    position: absolute;
+    width: 1px; height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .nav-toggle { padding: var(--sp-3); }
+  .brand { font-size: 1rem; }
+}
+
+/* Three bars drawn from one element (top + bottom via pseudo-elements) */
+.nav-toggle__bars,
+.nav-toggle__bars::before,
+.nav-toggle__bars::after {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: transform var(--speed) var(--ease), opacity var(--speed) var(--ease);
+}
+.nav-toggle__bars { position: relative; }
+.nav-toggle__bars::before,
+.nav-toggle__bars::after { content: ""; position: absolute; left: 0; }
+.nav-toggle__bars::before { top: -6px; }
+.nav-toggle__bars::after  { top: 6px; }
+
+/* Turn the bars into an X while the menu is open */
+.nav-toggle[aria-expanded="true"] .nav-toggle__bars { background: transparent; }
+.nav-toggle[aria-expanded="true"] .nav-toggle__bars::before { transform: translateY(6px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .nav-toggle__bars::after  { transform: translateY(-6px) rotate(-45deg); }
+
+/* ---- Nav list: collapsed drawer on mobile ---- */
+.nav {
+  flex-basis: 100%;
+  display: grid;
+  grid-template-rows: 0fr;                 /* animates open without a fixed height */
+  transition: grid-template-rows var(--speed) var(--ease);
+}
+.nav.is-open { grid-template-rows: 1fr; }
+
+.nav__list {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+.nav.is-open .nav__list { padding-bottom: var(--sp-4); }
+
+.nav__link {
+  display: block;
+  padding: var(--sp-3) var(--sp-2);
+  border-radius: var(--radius-sm);
+  color: var(--brand-800);
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  text-decoration: none;
+  transition: color var(--speed) var(--ease), background var(--speed) var(--ease);
+}
+.nav__link:hover { color: var(--accent-dark); background: var(--surface-alt); }
+.nav__cta { margin-top: var(--sp-2); }
+
+@media (min-width: 880px) {
+  .nav-toggle { display: none; }
+  .nav {
+    flex-basis: auto;
+    display: block;                         /* no drawer needed on desktop  */
+  }
+  .nav__list {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--sp-2);
+    padding-bottom: 0;
+  }
+  .nav__link { padding: var(--sp-2) var(--sp-3); position: relative; }
+  /* Subtle underline that grows on hover */
+  .nav__link::after {
+    content: "";
+    position: absolute;
+    left: var(--sp-3);
+    right: var(--sp-3);
+    bottom: 2px;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--speed) var(--ease);
+  }
+  .nav__link:hover::after { transform: scaleX(1); }
+  .nav__cta { margin: 0 0 0 var(--sp-2); }
+}
+
+/* --------------------------------------------------------------------------
+   2. SECTION RHYTHM
+   -------------------------------------------------------------------------- */
+.section { padding-block: var(--section-y); }
+.section--alt { background: var(--surface-alt); }
+
+.section__head { max-width: 62ch; margin-bottom: var(--sp-7); }
+.section__title { margin-bottom: var(--sp-3); }
+.section__title--light { color: #fff; }
+.section__lead { color: var(--ink-muted); font-size: var(--fs-lg); }
+
+/* --------------------------------------------------------------------------
+   3. HERO / ABOUT
+   -------------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  padding-block: calc(var(--section-y) * 0.9) var(--section-y);
+  background:
+    radial-gradient(1100px 520px at 88% -8%, var(--accent-soft) 0%, rgba(232, 241, 251, 0) 62%),
+    linear-gradient(180deg, #fbfcfe 0%, var(--surface) 100%);
+  overflow: hidden;
+}
+
+.hero__inner {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.hero__title { margin-bottom: var(--sp-4); }
+
+/* Short lead sentence directly under the headline */
+.hero__standfirst {
+  max-width: 40ch;
+  color: var(--ink-muted);
+  font-size: clamp(1.0625rem, 1rem + 0.45vw, 1.3125rem);
+  line-height: 1.55;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  margin-top: var(--sp-6);
+}
+
+.hero__media { position: relative; }
+.hero__image {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  background: var(--surface);
+}
+
+/* Two columns once there is room; text stays wider than the image */
+@media (min-width: 900px) {
+  .hero__inner { grid-template-columns: 1.02fr 0.98fr; }
+}
+
+/* ---- About Us copy block, below the hero row ----
+   One editable block of paragraphs that splits into two readable columns
+   on wide screens. Nothing to change when the copy gets longer or shorter. */
+.hero .prose--columns {
+  margin-top: clamp(3rem, 4vw, 4.5rem);
+  padding-top: clamp(2rem, 3vw, 3rem);
+  border-top: 1px solid var(--line);
+}
+@media (min-width: 900px) {
+  .prose--columns {
+    columns: 2;
+    column-gap: clamp(2.5rem, 5vw, 4.5rem);
+  }
+  .prose--columns p {
+    max-width: none;              /* the column itself sets the measure    */
+    break-inside: avoid;          /* never split a paragraph across columns */
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. STATS STRIP
+   -------------------------------------------------------------------------- */
+.stats {
+  padding-block: var(--sp-8);
+  background: var(--surface-alt);
+  border-block: 1px solid var(--line);
+}
+.stats__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));   /* 2-up on small phones */
+  gap: var(--sp-5) var(--sp-4);
+}
+@media (min-width: 780px) {
+  .stats__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+.stat { display: flex; flex-direction: column; gap: var(--sp-1); }
+.stat__value {
+  color: var(--brand-800);
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.125rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+.stat__label { color: var(--ink-muted); font-size: var(--fs-sm); line-height: 1.45; }
+
+/* --------------------------------------------------------------------------
+   5. CARD GRID  (Why us — and any future Services section)
+   -------------------------------------------------------------------------- */
+.card-grid {
+  display: grid;
+  gap: var(--sp-5);
+  grid-template-columns: 1fr;
+}
+/* auto-fit means adding a 4th or 5th card needs no CSS change at all */
+@media (min-width: 720px) {
+  .card-grid { grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); }
+}
+
+/* --------------------------------------------------------------------------
+   6. CONTACT SECTION
+   -------------------------------------------------------------------------- */
+.section--contact {
+  background:
+    radial-gradient(900px 420px at 12% 0%, rgba(47, 127, 209, 0.28) 0%, rgba(47, 127, 209, 0) 60%),
+    var(--brand-900);
+  color: var(--on-dark);
+}
+
+.contact__inner {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4rem);
+  align-items: start;
+}
+@media (min-width: 940px) {
+  .contact__inner { grid-template-columns: 1fr 1fr; }
+}
+
+.contact__lead { color: var(--on-dark-muted); font-size: var(--fs-lg); }
+
+.contact__list {
+  display: grid;
+  gap: var(--sp-4);
+  margin-top: var(--sp-6);
+}
+.contact__item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  color: var(--on-dark);
+  font-size: var(--fs-sm);
+}
+.contact__item svg { flex: 0 0 auto; color: var(--accent); }
+
+/* --------------------------------------------------------------------------
+   7. FOOTER
+   -------------------------------------------------------------------------- */
+.site-footer {
+  padding-block: var(--sp-7);
+  background: #091a30;
+  color: var(--on-dark-muted);
+}
+.site-footer__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-3);
+  text-align: center;
+}
+.brand--footer { flex: 0 0 auto; color: #fff; }
+.site-footer__text { margin: 0; font-size: var(--fs-sm); }
+.site-footer__text--small { font-size: var(--fs-xs); opacity: 0.75; }

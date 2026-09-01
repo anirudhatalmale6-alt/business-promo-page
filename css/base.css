@@ -1,0 +1,202 @@
+/* ==========================================================================
+   base.css  —  design tokens, reset and typography
+   --------------------------------------------------------------------------
+   THIS IS THE FILE YOU EDIT TO RE-BRAND THE PAGE.
+   Everything visual (colours, fonts, spacing, corner radius, shadows)
+   is defined once in the :root block below and reused everywhere else.
+   Change a value here and it updates across the whole site.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. DESIGN TOKENS
+   -------------------------------------------------------------------------- */
+:root {
+
+  /* ---- Brand colours -----------------------------------------------------
+     --brand-900 is the deep corporate navy used for headings, the header
+     and the contact panel. --accent is the single highlight colour used on
+     buttons, links and small details. Swap these two and the whole page
+     changes character. */
+  --brand-900: #0d2340;   /* deepest navy — contact panel, footer          */
+  --brand-800: #123255;   /* navy — headings                               */
+  --brand-700: #1b466f;   /* mid navy — hovers                             */
+  --accent:    #2f7fd1;   /* primary action colour                          */
+  --accent-dark: #2467ab; /* accent on hover / pressed                      */
+  --accent-soft: #e8f1fb; /* very light accent wash — icon chips, badges    */
+  --gold:      #c8a349;   /* sparing highlight (eyebrow rules, stat values) */
+
+  /* ---- Neutrals ---------------------------------------------------------- */
+  --ink:        #14202e;  /* body text                                      */
+  --ink-muted:  #55657a;  /* secondary text                                 */
+  --line:       #dfe5ec;  /* borders and rules                              */
+  --surface:    #ffffff;  /* cards, form panel                              */
+  --surface-alt:#f5f7fa;  /* alternating section background                 */
+  --on-dark:         #eef3f9; /* text on the navy panels                    */
+  --on-dark-muted:   #a9bdd4; /* secondary text on navy                     */
+
+  /* ---- Typography --------------------------------------------------------
+     A system font stack: it loads instantly, works with no internet
+     connection, and renders natively on Windows, macOS, Android and Linux.
+     To use a webfont instead, see the README ("Changing the fonts"). */
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --font-head: var(--font-body);
+
+  /* Fluid type: scales smoothly between 320px mobile and large desktops,
+     so nothing needs a media query just to change size. */
+  --fs-xs:   0.8125rem;                            /* 13px                  */
+  --fs-sm:   0.9375rem;                            /* 15px                  */
+  --fs-base: clamp(1rem, 0.97rem + 0.15vw, 1.0625rem);
+  --fs-lg:   clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem);
+  --fs-h3:   clamp(1.125rem, 1.05rem + 0.4vw, 1.3125rem);
+  --fs-h2:   clamp(1.625rem, 1.3rem + 1.5vw, 2.375rem);
+  --fs-h1:   clamp(1.9375rem, 1.5rem + 2.1vw, 3.0625rem);
+
+  --lh-tight: 1.15;
+  --lh-body:  1.7;
+
+  /* ---- Spacing scale ----------------------------------------------------- */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 3rem;
+  --sp-8: 4rem;
+  --section-y: clamp(3.5rem, 2rem + 6vw, 6.5rem);  /* vertical section rhythm */
+
+  /* ---- Layout ------------------------------------------------------------ */
+  --container: 1180px;    /* max content width                              */
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+
+  /* ---- Shape and depth --------------------------------------------------- */
+  --radius-sm: 6px;
+  --radius:    12px;
+  --radius-lg: 20px;
+  --shadow-sm: 0 1px 2px rgba(13, 35, 64, 0.06), 0 2px 8px rgba(13, 35, 64, 0.05);
+  --shadow-md: 0 4px 12px rgba(13, 35, 64, 0.08), 0 12px 32px rgba(13, 35, 64, 0.08);
+  --shadow-lg: 0 18px 50px rgba(13, 35, 64, 0.16);
+
+  /* ---- Motion ------------------------------------------------------------ */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --speed: 0.28s;
+}
+
+/* --------------------------------------------------------------------------
+   2. RESET  —  small and deliberate, not a full library
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;   /* stops iOS Safari inflating text       */
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;         /* keeps anchors clear of the sticky bar */
+}
+
+body {
+  margin: 0;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;               /* belt-and-braces against side-scroll   */
+}
+
+h1, h2, h3, h4 {
+  margin: 0 0 var(--sp-4);
+  font-family: var(--font-head);
+  line-height: var(--lh-tight);
+  color: var(--brand-800);
+  letter-spacing: -0.02em;
+  text-wrap: balance;               /* nicer headline line breaks (modern browsers) */
+}
+
+h1 { font-size: var(--fs-h1); }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); letter-spacing: -0.01em; }
+
+p { margin: 0 0 var(--sp-4); }
+p:last-child { margin-bottom: 0; }
+
+a { color: var(--accent-dark); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { color: var(--brand-700); }
+
+img, svg { max-width: 100%; height: auto; display: block; }
+
+ul { margin: 0; padding: 0; list-style: none; }
+
+/* Consistent, visible focus ring for keyboard users on every interactive element */
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* --------------------------------------------------------------------------
+   3. SMALL SHARED HELPERS
+   -------------------------------------------------------------------------- */
+
+/* Centred, gutter-padded content column used by every section */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Small capitalised label above a heading */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin: 0 0 var(--sp-3);
+  color: var(--accent-dark);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 2px;
+  background: var(--gold);
+}
+.eyebrow--light { color: var(--on-dark-muted); }
+
+/* Body copy blocks (the About Us paragraphs) */
+.prose p {
+  color: var(--ink-muted);
+  font-size: var(--fs-lg);
+  max-width: 62ch;                  /* comfortable reading measure           */
+}
+
+/* Visible only to screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* "Skip to content" link — hidden until focused with the keyboard */
+.skip-link {
+  position: absolute;
+  left: var(--sp-4);
+  top: -60px;
+  z-index: 100;
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--brand-900);
+  color: #fff;
+  border-radius: 0 0 var(--radius) var(--radius);
+  text-decoration: none;
+  transition: top var(--speed) var(--ease);
+}
+.skip-link:focus { top: 0; color: #fff; }
